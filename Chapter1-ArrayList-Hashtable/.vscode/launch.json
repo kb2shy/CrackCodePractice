@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - OneAway",
+            "request": "launch",
+            "mainClass": "OneAway",
+            "projectName": "Chapter1-ArrayList-Hashtable"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - PalPerm",
             "request": "launch",
             "mainClass": "PalPerm",
