@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - CheckPermutation",
+            "request": "launch",
+            "mainClass": "CheckPermutation",
+            "projectName": "Chapter1-ArrayList-Hashtable"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - IsUnique",
             "request": "launch",
             "mainClass": "IsUnique",
