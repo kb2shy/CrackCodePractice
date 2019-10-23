@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - IsUnique",
+            "request": "launch",
+            "mainClass": "IsUnique",
+            "projectName": "Chapter1-ArrayList-Hashtable"
+        }
+    ]
+}
