@@ -26,15 +26,17 @@ public class Main {
         System.out.println("null]");
 
         System.out.println("===========================");
-        deleteDuplicate(n1);
-        curr = n1;
-        System.out.print("[");
-        while (curr != null) {
-            System.out.print(curr.val + " -> ");
-            curr = curr.next;
-        }
-        System.out.println("null]");
 
+        // deleteDuplicate(n1);
+        // curr = n1;
+        // System.out.print("[");
+        // while (curr != null) {
+        //     System.out.print(curr.val + " -> ");
+        //     curr = curr.next;
+        // }
+        // System.out.println("null]");
+
+        System.out.println(getKthElement(n1, 2).val);
     }
 
     private static class Node {
@@ -67,7 +69,7 @@ public class Main {
     public static void deleteDuplicate(Node n) {
         while (n != null) {
             Node curr = n;
-            while (curr.next != null) {
+            while (curr != null) {
                 if (curr.next.val == n.val) {
                     curr.next = curr.next.next;
                 } else {
@@ -76,5 +78,28 @@ public class Main {
             }
             n = n.next;
         }
+    }
+
+    // method that iterates through the nodes, finds the size of the list,
+    // and then iterates to the Kth element of the list to get the node.
+    public static Node getKthElement(Node n, int i) {
+        int size = 1;
+        Node curr = n;
+        while (curr.next != null) {
+            size++;
+            curr = curr.next;
+        }
+
+        System.out.println("size = " + size);
+
+        int start = 0;
+        int end = size - i - 1;
+        Node node = n;
+        while (start < end) {
+            node = node.next;
+            start++;
+        }
+
+        return node;
     }
 }
