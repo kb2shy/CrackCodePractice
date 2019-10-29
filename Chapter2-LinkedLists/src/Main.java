@@ -36,7 +36,16 @@ public class Main {
         // }
         // System.out.println("null]");
 
-        System.out.println(getKthElement(n1, 5).val);
+        // System.out.println(getKthElement(n1, 5).val);
+
+        deleteMiddleNode(n1, n4);
+        curr = n1;
+        System.out.print("[");
+        while (curr != null) {
+            System.out.print(curr.val + " -> ");
+            curr = curr.next;
+        }
+        System.out.println("null]");
     }
 
     private static class Node {
@@ -117,5 +126,17 @@ public class Main {
         }
 
         return follower;
+    }
+
+    // 2.3 Delete the middle node
+    public static void deleteMiddleNode(Node n1, Node deleteNode) {
+        Node curr = n1;
+        while(curr != deleteNode && curr.next != null) {
+            if (curr.next.equals(deleteNode)) {
+                curr.next = curr.next.next;
+                return;
+            }
+            curr = curr.next;
+        }
     }
 }
