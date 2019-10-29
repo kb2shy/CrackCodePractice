@@ -6,16 +6,20 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) {
-        Node n1 = new Node(1, null);
-        Node n2 = new Node(2, null);
-        Node n3 = new Node(3, null);
-        Node n4 = new Node(2, null);
-        Node n5 = new Node(1, null);
+        Node n1 = new Node(3, null);
+        Node n2 = new Node(5, null);
+        Node n3 = new Node(8, null);
+        Node n4 = new Node(5, null);
+        Node n5 = new Node(10, null);
+        Node n6 = new Node(2, null);
+        Node n7 = new Node(1, null);
 
         n1.next = n2;
         n2.next = n3;
         n3.next = n4;
         n4.next = n5;
+        n5.next = n6;
+        n6.next = n7;
 
         Node curr = n1;
         System.out.print("[");
@@ -38,7 +42,17 @@ public class Main {
 
         // System.out.println(getKthElement(n1, 5).val);
 
-        deleteMiddleNode(n1, n4);
+        // deleteMiddleNode(n1, n4);
+        // curr = n1;
+        // System.out.print("[");
+        // while (curr != null) {
+        //     System.out.print(curr.val + " -> ");
+        //     curr = curr.next;
+        // }
+        // System.out.println("null]");
+
+        // partition method
+        partition(n1, 5);
         curr = n1;
         System.out.print("[");
         while (curr != null) {
@@ -46,6 +60,8 @@ public class Main {
             curr = curr.next;
         }
         System.out.println("null]");
+
+        System.out.println("===========================");
     }
 
     private static class Node {
@@ -138,5 +154,42 @@ public class Main {
             }
             curr = curr.next;
         }
+    }
+
+    public static Node partition(Node node, int x) {
+        Node beforeStart = null;
+        Node beforeEnd = null;
+        Node afterStart = null;
+        Node afterEnd = null;
+
+        while (node != null) {
+            Node next = node.next;
+            node.next = null;
+            if (node.val < x) {
+                if (beforeStart == null) {
+                    beforeStart = node;
+                    beforeEnd = beforeStart;
+                } else {
+                    beforeEnd.next = node;
+                    beforeEnd = node;
+                }
+            } else {
+                if (afterStart == null) {
+                    afterStart = node;
+                    afterEnd = afterStart;
+                } else {
+                    afterEnd.next = node;
+                    afterEnd = node;
+                }
+            }
+            node = next;
+        }
+        
+        if (beforeStart == null) {
+            return afterStart;
+        }
+
+        beforeEnd.next = afterStart;
+        return beforeStart;
     }
 }
