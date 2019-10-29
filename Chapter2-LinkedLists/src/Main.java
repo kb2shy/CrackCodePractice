@@ -36,7 +36,7 @@ public class Main {
         // }
         // System.out.println("null]");
 
-        System.out.println(getKthElement(n1, 2).val);
+        System.out.println(getKthElement(n1, 5).val);
     }
 
     private static class Node {
@@ -82,24 +82,40 @@ public class Main {
 
     // method that iterates through the nodes, finds the size of the list,
     // and then iterates to the Kth element of the list to get the node.
+    // public static Node getKthElement(Node n, int i) {
+    //     int size = 1;
+    //     Node curr = n;
+    //     while (curr.next != null) {
+    //         size++;
+    //         curr = curr.next;
+    //     }
+
+    //     System.out.println("size = " + size);
+
+    //     int start = 0;
+    //     int end = size - i - 1;
+    //     Node node = n;
+    //     while (start < end) {
+    //         node = node.next;
+    //         start++;
+    //     }
+
+    //     return node;
+    // }
+
+    // iterate through the list once and do a sliding window type of solution
     public static Node getKthElement(Node n, int i) {
-        int size = 1;
         Node curr = n;
+        Node follower = n;
+        int lead = 0;
         while (curr.next != null) {
-            size++;
+            if (lead >= i) {
+                follower = follower.next;
+            }
+            lead++;
             curr = curr.next;
         }
 
-        System.out.println("size = " + size);
-
-        int start = 0;
-        int end = size - i - 1;
-        Node node = n;
-        while (start < end) {
-            node = node.next;
-            start++;
-        }
-
-        return node;
+        return follower;
     }
 }
