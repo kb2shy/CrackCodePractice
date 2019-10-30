@@ -18,13 +18,13 @@ public class Main {
 
         n1.next = n2;
         n2.next = n3;
-        n3.next = null;
-        n4.next = n5;
-        n5.next = n6;
-        n6.next = n7;
+        n3.next = n4;
+        n4.next = n3;
+        // n5.next = n6;
+        // n6.next = n7;
 
-        printLinkedList(n1);
-        printLinkedList(n4);
+        // printLinkedList(n1);
+        // printLinkedList(n4);
         // printLinkedList(n4);
         // System.out.println(getInt(n1));
         // System.out.println(getInt(n4));
@@ -64,7 +64,9 @@ public class Main {
 
         // System.out.println(isPalindrome(n1));
 
-        System.out.println(hasIntersection(n1, n4));
+        // System.out.println(hasIntersection(n1, n4));
+
+        System.out.println(loopDetection(n1).val);
 
     }
 
@@ -303,5 +305,46 @@ public class Main {
         }
 
         return false;
+    }
+
+    // loop detection method that I built and wrote
+    // public static Node loopDetection(Node n) {
+    //     Node runner = n.next.next;
+    //     Node curr = n;
+    //     while (curr != null) {
+    //         if (curr.equals(runner)) {
+    //             return curr;
+    //         }
+    //         curr = curr.next;
+    //         runner = runner.next.next;
+    //     }
+
+    //     return null;
+    // }
+
+    // loop detection method from book
+    public static Node loopDetection(Node n) {
+        Node slow = n;
+        Node fast = n;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                break;
+            }
+        }
+
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+
+        slow = n;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return fast;
     }
 }
