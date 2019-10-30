@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Stack;
 
 /**
  * Main
@@ -6,30 +7,26 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) {
-        Node n1 = new Node(3, null);
-        Node n2 = new Node(5, null);
-        Node n3 = new Node(8, null);
-        Node n4 = new Node(5, null);
-        Node n5 = new Node(10, null);
-        Node n6 = new Node(2, null);
-        Node n7 = new Node(1, null);
+        Node n1 = new Node(1, null);
+        Node n2 = new Node(1, null);
+        Node n3 = new Node(3, null);
+        Node n4 = new Node(2, null);
+        Node n5 = new Node(1, null);
+        // Node n6 = new Node(5, null);
+        // Node n7 = new Node(1, null);
 
         n1.next = n2;
         n2.next = n3;
         n3.next = n4;
         n4.next = n5;
-        n5.next = n6;
-        n6.next = n7;
+        // n5.next = n6;
+        // n6.next = n7;
 
-        Node curr = n1;
-        System.out.print("[");
-        while (curr != null) {
-            System.out.print(curr.val + " -> ");
-            curr = curr.next;
-        }
-        System.out.println("null]");
-
-        System.out.println("===========================");
+        printLinkedList(n1);
+        // printLinkedList(n4);
+        // System.out.println(getInt(n1));
+        // System.out.println(getInt(n4));
+        // printLinkedList(addLists(n1, n4, 0));
 
         // deleteDuplicate(n1);
         // curr = n1;
@@ -52,8 +49,23 @@ public class Main {
         // System.out.println("null]");
 
         // partition method
-        partition(n1, 5);
-        curr = n1;
+        // partition(n1, 5);
+        // curr = n1;
+        // System.out.print("[");
+        // while (curr != null) {
+        //     System.out.print(curr.val + " -> ");
+        //     curr = curr.next;
+        // }
+        // System.out.println("null]");
+
+        // System.out.println("===========================");
+
+        System.out.println(isPalindrome(n1));
+
+    }
+
+    public static void printLinkedList(Node n) {
+        Node curr = n;
         System.out.print("[");
         while (curr != null) {
             System.out.print(curr.val + " -> ");
@@ -191,5 +203,84 @@ public class Main {
 
         beforeEnd.next = afterStart;
         return beforeStart;
+    }
+
+    public static Node sumLists(Node n1, Node n2) {
+        int fromN1 = getInt(n1);
+        int fromN2 = getInt(n2);
+        int sum = fromN1 + fromN2;
+        Node head = null;
+        Node prev = null;
+        while (sum > 0) {
+            Node temp = new Node(sum % 10, null);
+            if (head == null) {
+                head = temp;
+                prev = temp;
+            } else {
+                prev.next = temp;
+                prev = temp;
+            }
+            sum /= 10;
+        }
+
+        return head;
+    }
+
+    public static int getInt(Node n) {
+        int digits = n.val;
+        int byTen = 1;
+        Node curr = n.next;
+        while (curr != null) {
+            byTen *= 10;
+            digits += curr.val * byTen;
+            curr = curr.next;
+        }
+
+        return digits;
+    }
+
+    public static Node addLists(Node n1, Node n2, int carry) {
+        if (n1 == null && n2 == null && carry == 0) {
+            return null;
+        }
+
+        Node result = new Node(0, null);
+        int value = carry;
+        if (n1 != null) {
+            value += n1.val;
+        }
+        if (n2 != null) {
+            value += n2.val;
+        }
+
+        result.val = value % 10;
+        if (n1 != null || n2 != null) {
+            Node more = addLists(n1 == null ? null : n1.next,
+                                 n2 == null ? null : n2.next,
+                                 value >= 10 ? 1 : 0);
+            result.next = more;
+        }
+
+        return result;
+    }
+
+    public static boolean isPalindrome(Node n) {
+        Stack<Integer> stack = new Stack<>();
+        Node check = n;
+        while (check != null) {
+            stack.push(check.val);
+            check = check.next;
+        }
+
+        check = n;
+        while (check != null) {
+            if (check.val == stack.peek()) {
+                stack.pop();
+            }
+            check = check.next;
+        }
+
+        System.out.println(stack.toString());
+        return stack.isEmpty();
     }
 }
