@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -8,21 +9,22 @@ public class Main {
 
     public static void main(String[] args) {
         Node n1 = new Node(1, null);
-        Node n2 = new Node(1, null);
+        Node n2 = new Node(2, null);
         Node n3 = new Node(3, null);
-        Node n4 = new Node(2, null);
-        Node n5 = new Node(1, null);
-        // Node n6 = new Node(5, null);
-        // Node n7 = new Node(1, null);
+        Node n4 = new Node(4, null);
+        Node n5 = new Node(5, null);
+        Node n6 = new Node(6, null);
+        Node n7 = new Node(7, null);
 
         n1.next = n2;
         n2.next = n3;
-        n3.next = n4;
+        n3.next = null;
         n4.next = n5;
-        // n5.next = n6;
-        // n6.next = n7;
+        n5.next = n6;
+        n6.next = n7;
 
         printLinkedList(n1);
+        printLinkedList(n4);
         // printLinkedList(n4);
         // System.out.println(getInt(n1));
         // System.out.println(getInt(n4));
@@ -60,7 +62,9 @@ public class Main {
 
         // System.out.println("===========================");
 
-        System.out.println(isPalindrome(n1));
+        // System.out.println(isPalindrome(n1));
+
+        System.out.println(hasIntersection(n1, n4));
 
     }
 
@@ -282,5 +286,22 @@ public class Main {
 
         System.out.println(stack.toString());
         return stack.isEmpty();
+    }
+
+    public static boolean hasIntersection(Node n1, Node n2) {
+        HashMap<Integer, Node> map = new HashMap<>();
+        while (n1 != null) {
+            map.put(n1.val, n1.next);
+            n1 = n1.next;
+        }
+
+        while (n2 != null) {
+            if (map.containsKey(n2.val) && map.get(n2.val).equals(n2.next)) {
+                return true;
+            }
+            n2 = n2.next;
+        }
+
+        return false;
     }
 }
